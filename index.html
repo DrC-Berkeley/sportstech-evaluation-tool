@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsTech Pitch Evaluation Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .evaluation-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .slider-container {
+            margin-bottom: 30px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .slider-label {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #444;
+        }
+
+        .score-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c5282;
+        }
+
+        .description {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+            border-radius: 4px;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .scale-markers {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 2px;
+            color: #666;
+            font-size: 0.8em;
+        }
+
+        .total-score {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .total-score h2 {
+            margin: 0;
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="evaluation-card">
+        <h1>Pitch Evaluation Rubric</h1>
+        
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">Opening Hook (30 seconds)</span>
+                <span class="score-display" id="openingHookScore">3/5</span>
+            </div>
+            <div class="description">How effectively did the team capture attention and illustrate the problem through their scenario?</div>
+            <input type="range" min="1" max="5" value="3" class="slider" id="openingHook">
+            <div class="scale-markers">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">Problem & Customer Understanding (45 seconds)</span>
+                <span class="score-display" id="problemScore">3/5</span>
+            </div>
+            <div class="description">How well did they demonstrate understanding of their target users and the problem?</div>
+            <input type="range" min="1" max="5" value="3" class="slider" id="problem">
+            <div class="scale-markers">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">Solution Presentation (45 seconds)</span>
+                <span class="score-display" id="solutionScore">3/5</span>
+            </div>
+            <div class="description">How clearly did they present their solution and its benefits?</div>
+            <input type="range" min="1" max="5" value="3" class="slider" id="solution">
+            <div class="scale-markers">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <div class="slider-header">
+                <span class="slider-label">Overall Delivery</span>
+                <span class="score-display" id="deliveryScore">3/5</span>
+            </div>
+            <div class="description">How professional and engaging was their overall presentation?</div>
+            <input type="range" min="1" max="5" value="3" class="slider" id="delivery">
+            <div class="scale-markers">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+            </div>
+        </div>
+
+        <div class="total-score">
+            <h2>Total Score: <span id="totalScore">12/20</span></h2>
+        </div>
+    </div>
+
+    <script>
+        // Function to update individual scores and total
+        function updateScores() {
+            const categories = ['openingHook', 'problem', 'solution', 'delivery'];
+            let total = 0;
+
+            categories.forEach(category => {
+                const slider = document.getElementById(category);
+                const scoreDisplay = document.getElementById(category + 'Score');
+                const score = parseInt(slider.value);
+                total += score;
+                scoreDisplay.textContent = score + '/5';
+            });
+
+            document.getElementById('totalScore').textContent = total + '/20';
+        }
+
+        // Add event listeners to all sliders
+        document.querySelectorAll('.slider').forEach(slider => {
+            slider.addEventListener('input', updateScores);
+        });
+    </script>
+</body>
+</html>
+Add evaluation tool
